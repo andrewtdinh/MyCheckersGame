@@ -2,14 +2,32 @@ doctype html
 html
   head
     meta(charset='utf-8')      
-    title Apollo
+    title Andrew Checker Game
     link(rel='stylesheet', href='/vendor/font-awesome/css/font-awesome.min.css')
     link(rel='stylesheet', href=isProd ? '/index.min.css' : '/index.css')
     link(rel='shortcut icon', href='/favicon.ico')
   body
     h1#title Andrew Checker Game
-
-
+    
+    #controls
+      button#reset Reset
+      button#start Start Game
+      
+    #players
+      #p1.player
+      #p2.player
+        
+    table#board
+      - var values = [1, 2, 3, 4, 5, 6, 7, 8]
+      tbody
+        each row in values
+          tr(data-row = row)
+            each col in values
+              -var zone = 'dead'
+              if (row + col) % 2
+                -var zone = 'live'
+              td(class= zone data-x = col data-y = row)
+    
     script(src='/vendor/jquery/dist/jquery.min.js')
     script(src='/vendor/lodash/lodash.min.js')
     script(src=isProd ? '/index.min.js' : '/index.js')
