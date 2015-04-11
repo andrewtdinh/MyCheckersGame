@@ -69,7 +69,7 @@ function move(){
     return;
   }
   var $target = $(this);
-  //isKing = $source.hasClass('king'); //we can do this
+  //isKing = $source.hasClass('king'); //we can do this but is is more powerful
   var isKing = $source.is('.king');
 
   var src = {};
