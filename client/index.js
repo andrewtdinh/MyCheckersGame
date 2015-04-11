@@ -103,7 +103,7 @@ function moveType(src, tgt, compass, isKing){
   if (isMove (src, tgt, compass, isKing)){
     return 'move';
   }
-  if (isJump() && isEnemyClose($source, isKing)){
+  if (isJump(src, tgt, compass, isKing) && isEnemy($source, (tgt.x - src.x)/2, (tgt.y - src.y)/2)){
     return 'jump';
   }
 }
@@ -113,14 +113,15 @@ function isMove(src, tgt, compass, isKing){
     (src.y + compass.north === tgt.y || (isKing && src.y + compass.south === tgt.y));
 }
 
-function isJump($source, ){
-
+function isJump(src, tgt, compass, isKing){
+  return (src.x + (2*compass.east) === tgt.x || src.x + (2*compass.west) === tgt.x) &&
+    (src.y + (2*compass.north) === tgt.y || (isKing && src.y + (2*compass.south) === tgt.y));
 }
 
 function isEnemy($source, xdirection, ydirection){
   var src = {};
   var tgt = {};
-
+  debugger;
   src.x = $source.data('x') * 1;
   src.y = $source.data('y') * 1;
   tgt.x = src.x + xdirection;
@@ -133,23 +134,33 @@ function isEnemy($source, xdirection, ydirection){
 }
 
 function isEnemyClose($source, isKing){
-  var src = {};
-  var tgt1 = {};
-  var tgt2 = {};
+  // var src = {};
+  // var tgt1 = {};
+  // var tgt2 = {};
   var compass = {};
   compass.north = (current === 'football') ? -1 : 1;
   compass.east = (current==='football') ? 1 : -1;
   compass.west = compass.east * -1;
   compass.south = compass.north * - 1;
 
-  src.x = $source.data('x') * 1;
-  src.y = $source.data('y') * 1;
-  tgt1.x = src.x + compass.west;
-  tgt1.y = src.y + compass.north;
-  tgt2.x = src.x + compass.east;
-  tgt2.y = tgt1.y;
+  // src.x = $source.data('x') * 1;
+  // src.y = $source.data('y') * 1;
+  // tgt1.x = src.x + compass.west;
+  // tgt1.y = src.y + compass.north;
+  // tgt2.x = src.x + compass.east;
+  // tgt2.y = tgt1.y;
+  if (isEnemy($source, compass.east, compass.north)) {
+
+  }
+
+
   if (isKing){
-    
+    // var tgt3 = {};
+    // var tgt4 = {};
+    // tgt3.x = tgt1.x;
+    // tgt4.x = tgt2.x;
+    // tgt3.y = src.y + compass.south;
+    // tgt4.y = tgt3.y;
   }
 }
 
