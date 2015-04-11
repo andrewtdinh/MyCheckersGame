@@ -23,20 +23,6 @@ function init(){
   $('#board').on('click', '.empty', move);
 }
 
-// function putPieceOn(num, color){
-//   var x = num.toString()[0];
-//   var y = num.toString()[1];
-//   if (color === 'blue'){
-//   $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addBluePiece');
-//   }
-//   else {$('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addGreenPiece');}
-// }
-// function fillBoard(){
-//   for (var key in newBoard){
-//     if (newBoard[key] !== 'empty') {putPieceOn(key, newBoard[key]);}
-//   }
-// }
-
 function initBoard(){
   $('.valid').removeClass('soccer football player active empty');
   $('#board tr:lt(3) .valid').addClass('soccer player');
@@ -85,15 +71,24 @@ function move(){
   compass.east = (current==='football') ? 1 : -1;
   compass.west = compass.east * -1;
   compass.south = compass.north * - 1;
+  compass.north2 = (current === 'football') ? -2 : 2;
+  compass.east2 = (current==='football') ? 2 : -2;
+  compass.west2 = compass.east * -1;
+  compass.south2 = compass.north * - 1;
 
   switch (moveType(src, tgt, compass, isKing)){
     case 'move':
-      console.log('Its a move');
       movePiece($source, $target);
       switchUser();
       break;
     case'jump':
-      console.log('Its a jump');
+      // console.log('Its a jump');
+      movePiece($source, $target);
+      removePiece();
+      //Check if another jump is possible.  If yes
+      //selected() and wait for another move;  If not check if there are any opponent
+      //pieces left. 
+
   }
 }
 
@@ -132,3 +127,18 @@ function select(){
   $source.addClass('selected');
 
 }
+
+
+// function putPieceOn(num, color){
+//   var x = num.toString()[0];
+//   var y = num.toString()[1];
+//   if (color === 'blue'){
+//   $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addBluePiece');
+//   }
+//   else {$('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addGreenPiece');}
+// }
+// function fillBoard(){
+//   for (var key in newBoard){
+//     if (newBoard[key] !== 'empty') {putPieceOn(key, newBoard[key]);}
+//   }
+// }
