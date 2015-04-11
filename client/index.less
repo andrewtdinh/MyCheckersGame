@@ -14,12 +14,12 @@ h1 {
 #controls {
   display: inline;
   width: 100px;
-  margin: 2% auto 2% 41%;
+  margin: 2% auto 2% 28%;
 }
 #reset, #start{
   font-family: sans-serif;
   font-weight: lighter;
-  width: 80px;
+  width: 200px;
   height: 30px;
   background-color: lightblue;
   border-radius: 5px;
@@ -50,19 +50,23 @@ td{
 }
 
 .valid {
-  background-color: #2a2d86
+  background-color: #2a2d86;
 }
 
-.start {
-
+.football {
+  background-image: url('/assets/football.svg');
+  background-size: 100% 100%;
 }
 
-.addGreenPiece {
-  background-image: url('/assets/alien2.jpg');
-  background-size: cover;
+.soccer {
+  background-image: url('/assets/soccerball.svg');
+  background-size: 100% 100%;
 }
 
-.addBluePiece {
-  background-image: url('/assets/piece_blue.jpg');
-  background-size: cover;
+.active {
+  background-color: rgba(47, 146, 36, 0.8);
+}
+
+.selected {
+  background-color: #e2e90a;
 }
