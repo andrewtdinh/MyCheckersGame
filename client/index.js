@@ -14,6 +14,7 @@ var currentBoard = newBoard;
 var current = 'soccer';
 var $source;
 var flashAction;
+var numPieces = {'football':12, 'soccer':12}
 
 function init(){
   initBoard();
@@ -24,11 +25,11 @@ function init(){
 }
 
 function initBoard(){
+  stopFlash();
   $('.valid').removeClass('soccer football player active empty');
   $('#board tr:lt(3) .valid').addClass('soccer player');
   $('#board tr:gt(4) .valid').addClass('football player');
   $('.valid:not(.player)').addClass('empty');
-  // $('.valid ')
   flashBoard();
 }
 
@@ -54,6 +55,7 @@ function move(){
   if(!$source){
     return;
   }
+
   var $target = $(this);
   //isKing = $source.hasClass('king'); //we can do this but is is more powerful
   var isKing = $source.is('.king');
@@ -70,12 +72,12 @@ function move(){
   compass.north = (current === 'football') ? -1 : 1;
   compass.east = (current==='football') ? 1 : -1;
   compass.west = compass.east * -1;
-  compass.south = compass.north * - 1;
-  compass.north2 = (current === 'football') ? -2 : 2;
-  compass.east2 = (current==='football') ? 2 : -2;
-  compass.west2 = compass.east * -1;
-  compass.south2 = compass.north * - 1;
-
+  compass.south = compass.north * -1;
+  compass.north2 = compass.north * 2;
+  compass.east2 = compass.east * 2;
+  compass.west2 = compass.west * 2;
+  compass.south2 = compass.south * 2;
+  // debugger;
   switch (moveType(src, tgt, compass, isKing)){
     case 'move':
       movePiece($source, $target);
@@ -96,6 +98,9 @@ function removePiece(src, tgt){
   var x = (src.x + tgt.x)/2 + 1;
   var y = (src.y + tgt.y)/2 + 1;
   $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').removeClass().addClass('valid empty');
+  var opponent = (current === 'football')? 'soccer':'football';
+  // debugger;
+  numPieces[opponent] -= 1;
 }
 function movePiece($source, $target){
   var targetClasses = $target.attr('class');  //all classes on target
@@ -131,7 +136,7 @@ function isEnemy($source, xdirection, ydirection){
   tgt.x = src.x + xdirection;
   tgt.y = src.y + ydirection;
   var enemy = (current === 'football') ? 'soccer' : 'football';
-  if ($('tr:nth-child(' + tgt.y + ') td:nth-child(' + tgt.x + ')').hasClass(enemy)){
+  if ($('tr:nth-child(' + (tgt.y+1) + ') td:nth-child(' + (tgt.x+1) + ')').hasClass(enemy)){
     return true;
   }
   else {return false;}
