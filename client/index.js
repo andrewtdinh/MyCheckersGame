@@ -84,7 +84,7 @@ function move(){
     case'jump':
       // console.log('Its a jump');
       movePiece($source, $target);
-      removePiece();
+      removePiece(src, tgt);
       //Check if another jump is possible.  If yes
       //selected() and wait for another move;  If not check if there are any opponent
       //pieces left.
@@ -92,6 +92,11 @@ function move(){
   }
 }
 
+function removePiece(src, tgt){
+  var x = (src.x + tgt.x)/2 + 1;
+  var y = (src.y + tgt.y)/2 + 1;
+  $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').removeClass().addClass('valid empty');
+}
 function movePiece($source, $target){
   var targetClasses = $target.attr('class');  //all classes on target
   var sourceClasses = $source.attr('class');
@@ -121,7 +126,6 @@ function isJump(src, tgt, compass, isKing){
 function isEnemy($source, xdirection, ydirection){
   var src = {};
   var tgt = {};
-  debugger;
   src.x = $source.data('x') * 1;
   src.y = $source.data('y') * 1;
   tgt.x = src.x + xdirection;
