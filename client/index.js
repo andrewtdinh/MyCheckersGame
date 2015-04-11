@@ -2,15 +2,6 @@
 
 $(document).ready(init);
 
-var newBoard = {21:'blue', 41:'blue', 61:'blue', 81:'blue',
-                12:'blue', 32:'blue', 52:'blue', 72:'blue',
-                23:'blue', 43:'blue', 63:'blue', 83:'blue',
-                14:'empty', 34:'empty', 54:'empty', 74:'empty',
-                25:'empty', 45:'empty', 65:'empty', 85:'empty',
-                16:'green', 36:'green', 56:'green', 76:'green',
-                27:'green', 47:'green', 67:'green', 87:'green',
-                18:'green', 38:'green', 58:'green', 78:'green',};
-var currentBoard = newBoard;
 var current = 'soccer';
 var $source;
 var flashAction;
@@ -35,6 +26,8 @@ function initBoard(){
 
 function startGame(){
   stopFlash();
+  $('.' + current).addClass('active');
+  $('.' + current).removeClass('hilight');
 }
 
 function switchUser(){
@@ -44,7 +37,14 @@ function switchUser(){
 }
 
 function flashBoard(){
-  flashAction = setInterval(switchUser, 300);
+  // flashAction = setInterval(switchUser, 300);
+  flashAction = setInterval(toggleHiLite, 300);
+}
+
+function toggleHiLite(){
+  current = (current === 'football') ? 'soccer' : 'football';
+  $('.valid').removeClass('active selected hilight');
+  $('.' + current).addClass('hilight');
 }
 
 function stopFlash(){
