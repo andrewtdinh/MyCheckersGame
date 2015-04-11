@@ -87,7 +87,7 @@ function move(){
       removePiece();
       //Check if another jump is possible.  If yes
       //selected() and wait for another move;  If not check if there are any opponent
-      //pieces left. 
+      //pieces left.
 
   }
 }
@@ -103,7 +103,7 @@ function moveType(src, tgt, compass, isKing){
   if (isMove (src, tgt, compass, isKing)){
     return 'move';
   }
-  if (isJump() && isEnemy()){
+  if (isJump() && isEnemyClose($source, isKing)){
     return 'jump';
   }
 }
@@ -113,12 +113,44 @@ function isMove(src, tgt, compass, isKing){
     (src.y + compass.north === tgt.y || (isKing && src.y + compass.south === tgt.y));
 }
 
-function isJump(){
+function isJump($source, ){
 
 }
 
-function isEnemy(){
+function isEnemy($source, xdirection, ydirection){
+  var src = {};
+  var tgt = {};
 
+  src.x = $source.data('x') * 1;
+  src.y = $source.data('y') * 1;
+  tgt.x = src.x + xdirection;
+  tgt.y = src.y + ydirection;
+  var enemy = (current === 'football') ? 'soccer' : 'football';
+  if ($('tr:nth-child(' + tgt.y + ') td:nth-child(' + tgt.x + ')').hasClass(enemy)){
+    return true;
+  }
+  else {return false;}
+}
+
+function isEnemyClose($source, isKing){
+  var src = {};
+  var tgt1 = {};
+  var tgt2 = {};
+  var compass = {};
+  compass.north = (current === 'football') ? -1 : 1;
+  compass.east = (current==='football') ? 1 : -1;
+  compass.west = compass.east * -1;
+  compass.south = compass.north * - 1;
+
+  src.x = $source.data('x') * 1;
+  src.y = $source.data('y') * 1;
+  tgt1.x = src.x + compass.west;
+  tgt1.y = src.y + compass.north;
+  tgt2.x = src.x + compass.east;
+  tgt2.y = tgt1.y;
+  if (isKing){
+    
+  }
 }
 
 function select(){
