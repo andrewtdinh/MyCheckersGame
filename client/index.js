@@ -11,7 +11,7 @@ function init(){
   initBoard();
   $('#start').click(startGame);
   $('#reset').click(initBoard);
-  $('#board').on('click', '.active', select);
+  $('#board').on('click', '.active', select); //change .active to .allowSelect
   $('#board').on('click', '.empty', move);
 }
 
@@ -28,12 +28,14 @@ function startGame(){
   stopFlash();
   $('.' + current).addClass('active');
   $('.' + current).removeClass('hilight');
+  //For each of active pieces, look for and add class allowSelect
 }
 
 function switchUser(){
   current = (current === 'football') ? 'soccer' : 'football';
   $('.valid').removeClass('active selected');
   $('.' + current).addClass('active');
+  //For each of active pieces, look for and add class allowSelect
 }
 
 //moveAvailable function to be defined
@@ -104,7 +106,12 @@ function move(){
       else {
         var opponent = (current === 'football')? 'soccer':'football';
         if (numPieces[opponent] === 0) {
-          alert(current +' has won the game!');
+          if (current === 'football'){
+            alert('Meanie Greenies have conquered the world...for now!!');
+          } else {
+            alert('Stitchilions have conquered the world...for now!!);
+          }
+
         }
         else {switchUser();}
       }
@@ -159,7 +166,18 @@ function canJumpTo($source, xdirection, ydirection){
   }
   else {return false;}
 }
-//canMoveTo function to be defined
+
+function canMoveTo($source, xdirection, ydirection){
+  var src = {};
+  src.x = $source.data('x') * 1;
+  src.y = $source.data('y') * 1;
+  var x = src.x + xdirection + 1;
+  var y = src.y + ydirection + 1;
+  if ($('tr:nth-child(' +y+ ') td:nth-child(' +x+ ')').hasClass('empty')){
+    return true;
+  }
+  else {return false;}
+}
 
 function isEnemy($source, xdirection, ydirection){
   var src = {};
@@ -175,7 +193,29 @@ function isEnemy($source, xdirection, ydirection){
   else {return false;}
 }
 
-//canMove function to be defined
+function canMove($source, isKing){
+  var compass = {};
+  compass.north = (current === 'football') ? -1 : 1;
+  compass.east = (current==='football') ? 1 : -1;
+  compass.west = compass.east * -1;
+  compass.south = compass.north * -1;
+  if (canMoveTo($source, compass.east, compass.north)) {
+    return true;
+  }
+  if (canMoveTo($source, compass.west, compass.north)) {
+    return true;
+  }
+  if (isKing){
+    if (canMoveTo($source, compass.east, compass.south)){
+      return true;
+    }
+    if (canMoveTo($source, compass.west, compass.south)){
+      return true;
+    }
+  }
+  return false;
+}
+
 function canJump($source, isKing){
   var compass = {};
   compass.north = (current === 'football') ? -1 : 1;
