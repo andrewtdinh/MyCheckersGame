@@ -36,6 +36,8 @@ function switchUser(){
   $('.' + current).addClass('active');
 }
 
+//moveAvailable function to be defined
+
 function flashBoard(){
   flashAction = setInterval(toggleHiLite, 300);
 }
@@ -157,7 +159,7 @@ function canJumpTo($source, xdirection, ydirection){
   }
   else {return false;}
 }
-
+//canMoveTo function to be defined
 
 function isEnemy($source, xdirection, ydirection){
   var src = {};
@@ -173,6 +175,7 @@ function isEnemy($source, xdirection, ydirection){
   else {return false;}
 }
 
+//canMove function to be defined
 function canJump($source, isKing){
   var compass = {};
   compass.north = (current === 'football') ? -1 : 1;
