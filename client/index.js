@@ -88,10 +88,14 @@ function move(){
       movePiece($source, $target);
       removePiece(src, tgt);
       $source = $target;
-      //Check if another jump is possible.  If yes
-      //selected() and wait for another move;  If not check if there are any opponent
-      //pieces left.
-
+      if (canJump($source, isKing)){return;}
+      else {
+        var opponent = (current === 'football')? 'soccer':'football';
+        if (numPieces[opponent] === 0) {
+          alert(current +' has won the game!');
+        }
+        else {switchUser();}
+      }
   }
 }
 
@@ -129,6 +133,19 @@ function isJump(src, tgt, compass, isKing){
     (src.y + (2*compass.north) === tgt.y || (isKing && src.y + (2*compass.south) === tgt.y));
 }
 
+function canJumpTo($source, xdirection, ydirection){
+  var src = {};
+  src.x = $source.data('x') * 1;
+  src.y = $source.data('y') * 1;
+  var x = src.x + xdirection + 1;
+  var y = src.y + ydirection + 1;
+  if ($('tr:nth-child(' +y+ ') td:nth-child(' +x+ ')').hasClass('empty')){
+    return true;
+  }
+  else {return false;}
+}
+
+
 function isEnemy($source, xdirection, ydirection){
   var src = {};
   var tgt = {};
@@ -143,34 +160,29 @@ function isEnemy($source, xdirection, ydirection){
   else {return false;}
 }
 
-function isEnemyClose($source, isKing){
-  // var src = {};
-  // var tgt1 = {};
-  // var tgt2 = {};
+function canJump($source, isKing){
   var compass = {};
   compass.north = (current === 'football') ? -1 : 1;
   compass.east = (current==='football') ? 1 : -1;
   compass.west = compass.east * -1;
-  compass.south = compass.north * - 1;
-
-  // src.x = $source.data('x') * 1;
-  // src.y = $source.data('y') * 1;
-  // tgt1.x = src.x + compass.west;
-  // tgt1.y = src.y + compass.north;
-  // tgt2.x = src.x + compass.east;
-  // tgt2.y = tgt1.y;
+  compass.south = compass.north * -1;
+  compass.north2 = compass.north * 2;
+  compass.east2 = compass.east * 2;
+  compass.west2 = compass.west * 2;
+  compass.south2 = compass.south * 2;
   if (isEnemy($source, compass.east, compass.north)) {
-
+    return canJumpTo($source, compass.east2, compass.north2) ? true : false;
   }
-
-
+  if (isEnemy($source, compass.west, compass.north)) {
+    return canJumpTo($source, compass.west2, compass.north2) ? true : false;
+  }
   if (isKing){
-    // var tgt3 = {};
-    // var tgt4 = {};
-    // tgt3.x = tgt1.x;
-    // tgt4.x = tgt2.x;
-    // tgt3.y = src.y + compass.south;
-    // tgt4.y = tgt3.y;
+    if (isEnemy($source, compass.east, compass.south)) {
+      return canJumpTo($source, compass.east2, compass.south2) ? true : false;
+    }
+    if (isEnemy($source, compass.west, compass.south)) {
+      return canJumpTo($source, compass.west2, compass.south2) ? true : false;
+    }
   }
 }
 
