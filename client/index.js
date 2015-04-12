@@ -180,18 +180,3 @@ function select(){
   $source.addClass('selected');
 
 }
-
-
-// function putPieceOn(num, color){
-//   var x = num.toString()[0];
-//   var y = num.toString()[1];
-//   if (color === 'blue'){
-//   $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addBluePiece');
-//   }
-//   else {$('tr:nth-child(' + y + ') td:nth-child(' + x + ')').addClass('addGreenPiece');}
-// }
-// function fillBoard(){
-//   for (var key in newBoard){
-//     if (newBoard[key] !== 'empty') {putPieceOn(key, newBoard[key]);}
-//   }
-// }
