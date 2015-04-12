@@ -190,5 +190,4 @@ function select(){
   $source = $(this);  //--> normal td to jquery td
   $('.valid').removeClass('selected');
   $source.addClass('selected');
-
 }
