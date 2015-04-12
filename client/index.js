@@ -34,6 +34,8 @@ function switchUser(){
   current = (current === 'football') ? 'soccer' : 'football';
   $('.valid').removeClass('active selected');
   $('.' + current).addClass('active');
+  // if (current === 'football'){$('.footking').addClass('active');}
+  // else {$('.soccerking').addClass('active');}
 }
 
 function flashBoard(){
@@ -50,6 +52,22 @@ function toggleHiLite(){
 function stopFlash(){
   clearInterval(flashAction);
 }
+
+function crown($target){
+  if (current === 'football'){
+    // $target.removeClass('football');
+    $target.addClass('king footking');
+  } else {
+    // $target.removeClass('soccer');
+    $target.addClass('king soccerking');
+  }
+}
+function touchDown($target){
+  if ((current === 'football') && (($target.y * 1) === 0)) {return true;}
+  else if ((current === 'soccer') && (($target.y * 1) === 7)) {return true;}
+  else {return false;}
+}
+
 
 function move(){
   if(!$source){
@@ -81,6 +99,9 @@ function move(){
   switch (moveType(src, tgt, compass, isKing)){
     case 'move':
       movePiece($source, $target);
+      // if (touchDown($target)){
+      //   crown($target);
+      // }
       switchUser();
       break;
     case'jump':
@@ -110,8 +131,12 @@ function removePiece(src, tgt){
 function movePiece($source, $target){
   var targetClasses = $target.attr('class');  //all classes on target
   var sourceClasses = $source.attr('class');
+  debugger;
   $target.attr('class', sourceClasses);
   $source.attr('class', targetClasses);
+
+  $target.data('y') === 0 ? $target.addClass('king footking'): console.log('Not crowned!');
+  $target.data('y') === 7 ? $target.addClass('king soccerking'): console.log('Not crowned');
 }
 
 function moveType(src, tgt, compass, isKing){
@@ -190,4 +215,8 @@ function select(){
   $source = $(this);  //--> normal td to jquery td
   $('.valid').removeClass('selected');
   $source.addClass('selected');
+}
+
+function isKing(){
+  return $source.hasClass('king');
 }
