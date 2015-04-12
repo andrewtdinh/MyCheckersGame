@@ -17,7 +17,7 @@ function init(){
 
 function initBoard(){
   stopFlash();
-  $('.valid').removeClass('soccer football player active empty');
+  $('.valid').removeClass('soccer football player active empty king soccerking footking');
   $('#board tr:lt(3) .valid').addClass('soccer player');
   $('#board tr:gt(4) .valid').addClass('football player');
   $('.valid:not(.player)').addClass('empty');
@@ -34,12 +34,9 @@ function switchUser(){
   current = (current === 'football') ? 'soccer' : 'football';
   $('.valid').removeClass('active selected');
   $('.' + current).addClass('active');
-  // if (current === 'football'){$('.footking').addClass('active');}
-  // else {$('.soccerking').addClass('active');}
 }
 
 function flashBoard(){
-  // flashAction = setInterval(switchUser, 300);
   flashAction = setInterval(toggleHiLite, 300);
 }
 
@@ -55,10 +52,8 @@ function stopFlash(){
 
 function crown($target){
   if (current === 'football'){
-    // $target.removeClass('football');
     $target.addClass('king footking');
   } else {
-    // $target.removeClass('soccer');
     $target.addClass('king soccerking');
   }
 }
@@ -75,7 +70,6 @@ function move(){
   }
 
   var $target = $(this);
-  //isKing = $source.hasClass('king'); //we can do this but is is more powerful
   var isKing = $source.is('.king');
 
   var src = {};
