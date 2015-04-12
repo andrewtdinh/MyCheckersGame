@@ -87,6 +87,7 @@ function move(){
       // console.log('Its a jump');
       movePiece($source, $target);
       removePiece(src, tgt);
+      $source = $target;
       //Check if another jump is possible.  If yes
       //selected() and wait for another move;  If not check if there are any opponent
       //pieces left.
