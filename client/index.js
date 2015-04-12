@@ -89,17 +89,12 @@ function move(){
   compass.east2 = compass.east * 2;
   compass.west2 = compass.west * 2;
   compass.south2 = compass.south * 2;
-  // debugger;
   switch (moveType(src, tgt, compass, isKing)){
     case 'move':
       movePiece($source, $target);
-      // if (touchDown($target)){
-      //   crown($target);
-      // }
       switchUser();
       break;
     case'jump':
-      // console.log('Its a jump');
       movePiece($source, $target);
       removePiece(src, tgt);
       $source = $target;
@@ -119,7 +114,6 @@ function removePiece(src, tgt){
   var y = (src.y + tgt.y)/2 + 1;
   $('tr:nth-child(' + y + ') td:nth-child(' + x + ')').removeClass().addClass('valid empty');
   var opponent = (current === 'football')? 'soccer':'football';
-  // debugger;
   numPieces[opponent] -= 1;
 }
 function movePiece($source, $target){
@@ -189,20 +183,21 @@ function canJump($source, isKing){
   compass.east2 = compass.east * 2;
   compass.west2 = compass.west * 2;
   compass.south2 = compass.south * 2;
-  if (isEnemy($source, compass.east, compass.north)) {
-    return canJumpTo($source, compass.east2, compass.north2) ? true : false;
+  if (isEnemy($source, compass.east, compass.north) && canJumpTo($source, compass.east2, compass.north2)) {
+    return true;
   }
-  if (isEnemy($source, compass.west, compass.north)) {
-    return canJumpTo($source, compass.west2, compass.north2) ? true : false;
+  if (isEnemy($source, compass.west, compass.north) && canJumpTo($source, compass.west2, compass.north2)) {
+    return true;
   }
   if (isKing){
-    if (isEnemy($source, compass.east, compass.south)) {
-      return canJumpTo($source, compass.east2, compass.south2) ? true : false;
+    if (isEnemy($source, compass.east, compass.south) && canJumpTo($source, compass.east2, compass.south2)){
+      return true;
     }
-    if (isEnemy($source, compass.west, compass.south)) {
-      return canJumpTo($source, compass.west2, compass.south2) ? true : false;
+    if (isEnemy($source, compass.west, compass.south) && canJumpTo($source, compass.west2, compass.south2)){
+      return true;
     }
   }
+  return false;
 }
 
 function select(){
