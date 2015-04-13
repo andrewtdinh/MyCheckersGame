@@ -5,7 +5,7 @@ $(document).ready(init);
 var current = 'soccer';
 var $source;
 var flashAction;
-var numPieces = {'football':12, 'soccer':12}
+var numPieces = {'football':12, 'soccer':12};
 
 function init(){
   initBoard();
@@ -17,7 +17,7 @@ function init(){
 
 function initBoard(){
   stopFlash();
-  $('.valid').removeClass('soccer football player active empty king soccerking footking');
+  $('.valid').removeClass('soccer football player active empty king soccerking footking selected');
   $('#board tr:lt(3) .valid').addClass('soccer player');
   $('#board tr:gt(4) .valid').addClass('football player');
   $('.valid:not(.player)').addClass('empty');
@@ -109,9 +109,8 @@ function move(){
           if (current === 'football'){
             alert('Meanie Greenies have conquered the world...for now!!');
           } else {
-            alert('Stitchilions have conquered the world...for now!!);
+            alert('Stitchilions have conquered the world...for now!!');
           }
-
         }
         else {switchUser();}
       }
