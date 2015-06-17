@@ -1,9 +1,9 @@
 {
   "name": "front-end-prototype",
   "version": "0.0.1",
-  "homepage": "https://github.com/chyld/front-end-prototype",
-  "authors": [
-    "Chyld Medford <chyld.medford@gmail.com>"
+  "homepage": "http://andrewtdinh.com",
+  "author": [
+    "Andrew Trieu Dinh <andrewdinh74@gmail.com>"
   ],
   "license": "BSD",
   "dependencies": {
